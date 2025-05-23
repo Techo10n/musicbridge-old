@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { Buffer } from 'buffer';
 
 export async function GET() {
   try {

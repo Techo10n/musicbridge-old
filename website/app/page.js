@@ -38,11 +38,11 @@ export default function Home() {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       if (data.tracks.items.length > 0) {
         // Return the URI of the first matching track
@@ -57,11 +57,11 @@ export default function Home() {
       return null;
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('Scraping playlist...');
-  
+
     // Step 1: Scrape the playlist from source
     let source = '';
     if (playlistLink.includes('spotify')) {
@@ -175,40 +175,40 @@ export default function Home() {
           <Link href="/">musicbridge</Link>
         </div>
         <div className="flex flex-col items-center justify-center min-h-screen">
-        <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4">
-          <div className="flex items-center space-x-2">
-            <input
-              type="text"
-              name="playlistLink"
-              value={playlistLink}
-              onChange={(e) => setPlaylistLink(e.target.value)}
-              placeholder="Enter playlist link"
-              required
-              className="w-[400px] appearance-none border-b border-[#D7D7D7] bg-transparent px-1 py-2 leading-tight text-white focus:outline-none"
-            />
-            <select
-              name="targetService"
-              value={targetService}
-              onChange={(e) => setTargetService(e.target.value)}
-              className="h-10 bg-black text-white border-2 border-gray-300 rounded px-2 py-1 focus:outline-none"
+          <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4">
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
+                name="playlistLink"
+                value={playlistLink}
+                onChange={(e) => setPlaylistLink(e.target.value)}
+                placeholder="Enter playlist link"
+                required
+                className="w-[400px] appearance-none border-b border-[#D7D7D7] bg-transparent px-1 py-2 leading-tight text-white focus:outline-none"
+              />
+              <select
+                name="targetService"
+                value={targetService}
+                onChange={(e) => setTargetService(e.target.value)}
+                className="h-10 bg-black text-white border-2 border-gray-300 rounded px-2 py-1 focus:outline-none"
+              >
+                <option value="Spotify">Spotify</option>
+                <option value="Apple Music">Apple Music</option>
+                <option value="YouTube Music">YouTube Music</option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              className="border-2 border-gray-300 h-10 w-16 text-white rounded focus:outline-none"
             >
-              <option value="Spotify">Spotify</option>
-              <option value="Apple Music">Apple Music</option>
-              <option value="YouTube Music">YouTube Music</option>
-            </select>
-          </div>
-          <button
-            type="submit"
-            className="border-2 border-gray-300 h-10 w-16 text-white rounded focus:outline-none"
-          >
-            Go
-          </button>
-        </form>
+              Go
+            </button>
+          </form>
           {message && <p className="mt-4 text-white text-center">{message}</p>}
           {songs.length > 0 && (
-            <div className="mt-2 w-[70%] p-4 border border-white rounded-lg flex fixed bottom-28 max-h-[200px] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="mt-2 w-[70%] p-4 border border-white rounded-lg flex fixed bottom-28 max-h-[100px] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               <ul className="flex flex-wrap text-white list-none p-0 -mt-1">
-              <p className="mr-2 font-bold">Scraped Songs: </p>
+                <p className="mr-2 font-bold">Scraped Songs: </p>
                 {songs.map((song, index) => (
                   <li key={index} className="whitespace-nowrap mr-2">
                     {song.songTitle} by {song.artistName}{index !== songs.length - 1 ? ',' : ''}
